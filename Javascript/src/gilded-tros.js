@@ -1,64 +1,54 @@
+const BDAWG_KEYCHAIN = 'B-DAWG Keychain'
+const GOOD_WINE = 'Good Wine'
+const BACKSTAGE_PASS_REFACTOR = 'Backstage passes for Re:Factor'
+const BACKSTAGE_PASS_HAXX = 'Backstage passes for HAXX'
+
+const BACKSTAGE_PASSES = [BACKSTAGE_PASS_REFACTOR, BACKSTAGE_PASS_HAXX]
+
 export class GildedTros {
   constructor(items) {
-    this.items = items;
+    this.items = items
   }
 
   updateQuality() {
-    for (let i = 0; i < this.items.length; i++) {
-      if (
-        this.items[i].name != 'Good Wine' &&
-        this.items[i].name != 'Backstage passes for Re:Factor' &&
-        this.items[i].name != 'Backstage passes for HAXX'
-      ) {
-        if (this.items[i].quality > 0) {
-          if (this.items[i].name != 'B-DAWG Keychain') {
-            this.items[i].quality = this.items[i].quality - 1;
-          }
-        }
-      } else {
-        if (this.items[i].quality < 50) {
-          this.items[i].quality = this.items[i].quality + 1;
-
-          if (this.items[i].name == 'Backstage passes for Re:Factor') {
-            if (this.items[i].sellIn < 11) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
-              }
-            }
-
-            if (this.items[i].sellIn < 6) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
-              }
-            }
-          }
-        }
+    for (let item of this.items) {
+      // LEGENDARY ITEMS ARE IMMUTABLE
+      if (item.name === BDAWG_KEYCHAIN) {
+        continue
       }
 
-      if (this.items[i].name != 'B-DAWG Keychain') {
-        this.items[i].sellIn = this.items[i].sellIn - 1;
-      }
+      item.sellIn = item.sellIn - 1
 
-      if (this.items[i].sellIn < 0) {
-        if (this.items[i].name != 'Good Wine') {
-          if (
-            this.items[i].name != 'Backstage passes for Re:Factor' ||
-            this.items[i].name != 'Backstage passes for HAXX'
-          ) {
-            if (this.items[i].quality > 0) {
-              if (this.items[i].name != 'B-DAWG Keychain') {
-                this.items[i].quality = this.items[i].quality - 1;
-              }
-            }
-          } else {
-            this.items[i].quality =
-              this.items[i].quality - this.items[i].quality;
-          }
+      // WINE QUALITY INCREASES
+      if (item.name === GOOD_WINE) {
+        item.quality += 1
+      // BACKSTAGE PASSES QUALITY INCREASE UNTIL OVER
+      } else if (BACKSTAGE_PASSES.includes(item.name)) {
+        if (item.sellIn <= 10) {
+          item.quality += 1
+        } else if (item.sellIn <= 5) {
+          item.quality += 2
+        } else if (item.sellIn <= 0) {
+          item.quality = 0
         } else {
-          if (this.items[i].quality < 50) {
-            this.items[i].quality = this.items[i].quality + 1;
-          }
+          item.quality += 1
         }
+      // ITEMS QUALITY DECREASE
+      } else {
+        item.quality -= 1
+
+        if (item.sellIn < 0) {
+          item.quality -= 1
+        }
+      }
+
+      // CAP
+      if (item.quality > 50) {
+        item.quality = 50
+      }
+
+      if (item.quality < 0) {
+        item.quality = 0
       }
     }
   }

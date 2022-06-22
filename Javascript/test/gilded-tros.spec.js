@@ -200,7 +200,7 @@ describe('Test the items', () => {
     app.updateQuality()
 
     expect(backStagePass1.quality).toEqual(42)
-    expect(backStagePass2.quality).toEqual(34)
+    expect(backStagePass2.quality).toEqual(34) // bug?
     expect(backStagePass3.quality).toEqual(36)
 
     // 4 days passed

@@ -22,17 +22,19 @@ export class GildedTros {
       // WINE QUALITY INCREASES
       if (item.name === GOOD_WINE) {
         item.quality += 1
+
       // BACKSTAGE PASSES QUALITY INCREASE UNTIL OVER
       } else if (BACKSTAGE_PASSES.includes(item.name)) {
-        if (item.sellIn <= 10) {
-          item.quality += 1
-        } else if (item.sellIn <= 5) {
-          item.quality += 2
-        } else if (item.sellIn <= 0) {
+        if (item.sellIn < 0) {
           item.quality = 0
+        } else if (item.sellIn <= 5) {
+          item.quality += 3
+        } else if (item.sellIn <= 10) {
+          item.quality += 2
         } else {
           item.quality += 1
         }
+
       // ITEMS QUALITY DECREASE
       } else {
         item.quality -= 1

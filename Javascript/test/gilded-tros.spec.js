@@ -133,36 +133,24 @@ describe('Test the items', () => {
     expect(goodWine1.quality).toEqual(21)
 
     expect(goodWine2.sellIn).toEqual(-1)
-    expect(goodWine2.quality).toEqual(3) // bug?
+    expect(goodWine2.quality).toEqual(3)
   })
 
   test('The Quality of an item is never more than 50', () => {
-    const ring1 = new Item('Ring of Cleansening Code', 0, 50)
-    const ring2 = new Item('Ring of Cleansening Code', 0, 49)
-    const elixir1 = new Item('Elixir of the SOLID', -5, 48)
-    const elixir2 = new Item('Elixir of the SOLID', -2, 49)
     const goodWine1 = new Item('Good Wine', 4, 50)
     const goodWine2 = new Item('Good Wine', 0, 49)
 
-    const app = new GildedTros([ring1, ring2, elixir1, elixir2, goodWine1, goodWine2])
+    const app = new GildedTros([goodWine1, goodWine2])
 
     // 1 days passed
     app.updateQuality()
     expect(goodWine1.quality).toEqual(50)
     expect(goodWine2.quality).toEqual(50)
-    expect(ring1.quality).toEqual(49) // bug?
-    expect(ring2.quality).toEqual(50)
-    expect(elixir1.quality).toEqual(50)
-    expect(elixir2.quality).toEqual(50)
 
     // 2 days passed
     app.updateQuality()
     expect(goodWine1.quality).toEqual(50)
     expect(goodWine2.quality).toEqual(50)
-    expect(ring1.quality).toEqual(50)
-    expect(ring2.quality).toEqual(50)
-    expect(elixir1.quality).toEqual(50)
-    expect(elixir2.quality).toEqual(50)
   })
 
   test('"B-DAWG Keychain", being a legendary item, never has to be sold or decreases in Quality. Legendary items always have Quality 80', () => {
@@ -199,16 +187,16 @@ describe('Test the items', () => {
     app.updateQuality()
     app.updateQuality()
 
-    expect(backStagePass1.quality).toEqual(42)
-    expect(backStagePass2.quality).toEqual(34) // bug?
+    expect(backStagePass1.quality).toEqual(43)
+    expect(backStagePass2.quality).toEqual(35)
     expect(backStagePass3.quality).toEqual(36)
 
     // 4 days passed
     app.updateQuality()
     app.updateQuality()
 
-    expect(backStagePass1.quality).toEqual(46)
-    expect(backStagePass2.quality).toEqual(37)
+    expect(backStagePass1.quality).toEqual(47)
+    expect(backStagePass2.quality).toEqual(41)
     expect(backStagePass3.quality).toEqual(42)
     
     // 6 days passed
@@ -216,7 +204,7 @@ describe('Test the items', () => {
     app.updateQuality()
 
     expect(backStagePass1.quality).toEqual(50)
-    expect(backStagePass2.quality).toEqual(43)
+    expect(backStagePass2.quality).toEqual(47)
     expect(backStagePass3.quality).toEqual(0)
   })
 })

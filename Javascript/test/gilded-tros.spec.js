@@ -207,4 +207,26 @@ describe('Test the items', () => {
     expect(backStagePass2.quality).toEqual(47)
     expect(backStagePass3.quality).toEqual(0)
   })
+
+  test('Smelly items ("Duplicate Code", "Long Methods", "Ugly Variable Names") degrade in Quality twice as fast as normal items', () => {
+    const duplicateCode1 = new Item('Duplicate Code', 12, 40)
+    const longMethods1 = new Item('Long Methods', 7, 30)
+    const uglyVariableName1 = new Item('Ugly Variable Names', 4, 30)
+    const duplicateCode2 = new Item('Duplicate Code', 4, 20)
+    const longMethods2 = new Item('Long Methods', 2, 10)
+    const uglyVariableName2 = new Item('Ugly Variable Names', -2, 12)
+
+    const app = new GildedTros([duplicateCode1, longMethods1, uglyVariableName1, duplicateCode2, longMethods2, uglyVariableName2])
+
+    // 2 days passed
+    app.updateQuality()
+    app.updateQuality()
+
+    expect(duplicateCode1.quality).toEqual(36)
+    expect(longMethods1.quality).toEqual(26)
+    expect(uglyVariableName1.quality).toEqual(26)
+    expect(duplicateCode2.quality).toEqual(16)
+    expect(longMethods2.quality).toEqual(6)
+    expect(uglyVariableName2.quality).toEqual(8)
+  })
 })

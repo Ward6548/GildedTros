@@ -40,13 +40,14 @@ export class GildedTros {
           item.quality += 1
         }
 
+      // SMELLY ITEMS DECRADE TWICE THE SPEED THAN NORMAL ITEMS
       } else if (SMELLY_ITEMS.includes(item.name)) {
         item.quality -= 2
 
         if (item.sellIn < 0) {
           item.quality -= 2
         }
-      // ITEMS QUALITY DECREASE
+      // OTHER ITEMS QUALITY DECREASE NORMAL SPEED
       } else {
         item.quality -= 1
 

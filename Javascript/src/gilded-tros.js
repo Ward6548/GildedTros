@@ -3,7 +3,12 @@ const GOOD_WINE = 'Good Wine'
 const BACKSTAGE_PASS_REFACTOR = 'Backstage passes for Re:Factor'
 const BACKSTAGE_PASS_HAXX = 'Backstage passes for HAXX'
 
+const DUPLICATE_CODE = 'Duplicate Code'
+const LONG_METHODS = 'Long Methods'
+const UGLY_VARIABLE_NAMES = 'Ugly Variable Names'
+
 const BACKSTAGE_PASSES = [BACKSTAGE_PASS_REFACTOR, BACKSTAGE_PASS_HAXX]
+const SMELLY_ITEMS = [DUPLICATE_CODE, LONG_METHODS, UGLY_VARIABLE_NAMES]
 
 export class GildedTros {
   constructor(items) {
@@ -35,6 +40,12 @@ export class GildedTros {
           item.quality += 1
         }
 
+      } else if (SMELLY_ITEMS.includes(item.name)) {
+        item.quality -= 2
+
+        if (item.sellIn < 0) {
+          item.quality -= 2
+        }
       // ITEMS QUALITY DECREASE
       } else {
         item.quality -= 1

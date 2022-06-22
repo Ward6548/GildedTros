@@ -227,6 +227,6 @@ describe('Test the items', () => {
     expect(uglyVariableName1.quality).toEqual(26)
     expect(duplicateCode2.quality).toEqual(16)
     expect(longMethods2.quality).toEqual(6)
-    expect(uglyVariableName2.quality).toEqual(8)
+    expect(uglyVariableName2.quality).toEqual(4)
   })
 })
